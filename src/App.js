@@ -14,26 +14,43 @@ function App() {
   const [cartOpened, setCartOpened] = React.useState(false);
 
   React.useEffect(() => {
-    axios.get('https://66c4b6a6b026f3cc6cf06c1e.mockapi.io/items').then(res => {
-      setItems(res.data)
-    });
-    axios.get('https://66c4b6a6b026f3cc6cf06c1e.mockapi.io/cart').then(res => {
-      setCartItems(res.data)
-    });
-    axios.get('https://67153ecc33bc2bfe40b9e441.mockapi.io/favorites').then(res => {
-      setFavorites(res.data)
-    });
-  }, [])
+    async function fetchData() {
+      const cartResponse = await axios.get('https://66c4b6a6b026f3cc6cf06c1e.mockapi.io/cart');
+      const favoritesResponse = await axios.get('https://67153ecc33bc2bfe40b9e441.mockapi.io/favorites');
+      const itemsResponse = await axios.get('https://66c4b6a6b026f3cc6cf06c1e.mockapi.io/items');
+
+  
+      setCartItems(cartResponse.data);
+      setFavorites(favoritesResponse.data);
+      setItems(itemsResponse.data);
+    }
+
+    fetchData();
+  }, []);
 
   const onAddToCart = (obj) => {
-    axios.post('https://66c4b6a6b026f3cc6cf06c1e.mockapi.io/cart', obj);
-    setCartItems(prev => [...prev, obj]);
+    console.log(obj);
+    if(cartItems.find((item) => Number(item.id) === Number(obj.id))) {
+      axios.delete(`https://66c4b6a6b026f3cc6cf06c1e.mockapi.io/cart/${obj.id}`);
+      setCartItems(prev => prev.filter(i => Number(i.id) !== Number(obj.id)));
+    } else {
+      axios.post('https://66c4b6a6b026f3cc6cf06c1e.mockapi.io/cart', obj);
+      setCartItems(prev => [...prev, obj]);
+    }
   }
 
   const onRemoveItem = (id) => {
-    axios.delete(`https://66c4b6a6b026f3cc6cf06c1e.mockapi.io/cart/${id}`);
-    setCartItems(prev => prev.filter(item => item.id !== id));
+      console.log('Removing item from cart:', id); // Логируем удаление
+      // Удаляем из API
+      axios.delete(`https://66c4b6a6b026f3cc6cf06c1e.mockapi.io/cart/${id}`)
+          .then(() => {
+              // Удаляем из состояния после успешного удаления из API
+              setCartItems(prev => prev.filter(item => Number(item.id) !== Number(id)));
+              console.log(`Item with id ${id} removed from state`);
+          })
+          .catch((error) => console.error(`Error removing item with id ${id}:`, error));
   }
+
 
   const onAddToFavorite = async (obj) => {
     try {
@@ -70,6 +87,7 @@ function App() {
           element={
             <Home 
               items={items} 
+              cartItems={cartItems}
               searchValue={searchValue} 
               setSearchValue={setSearchValue}
               onChangeSearchInput={onChangeSearchInput}
@@ -78,14 +96,12 @@ function App() {
             />
           }
         />
-      </Routes>
 
-      <Routes>
         <Route 
-          path='/favorites' 
-          element={
-            <Favorites items={favorites} onAddToFavorite={onAddToFavorite}/>
-          }
+            path='/favorites' 
+            element={
+              <Favorites items={favorites} onAddToFavorite={onAddToFavorite}/>
+            }
         />
       </Routes>
 

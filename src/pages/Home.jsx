@@ -1,6 +1,30 @@
 import Card from '../components/Card';
 
-function Home({ items, cartItems, searchValue, setSearchValue, onChangeSearchInput, onAddToFavorite, onAddToCart }) {
+function Home({ items, cartItems, searchValue, setSearchValue, onChangeSearchInput, onAddToFavorite, onAddToCart, isLoading }) {
+
+    const renderItems = () => {
+        const filtredItems = items.filter(item => 
+            item.name.toLowerCase().includes(searchValue.toLowerCase()) || 
+            item.description.toLowerCase().includes(searchValue.toLowerCase())
+        );
+
+        // Если данные загружаются, возвращаем скелетоны
+        return (isLoading ? Array(8).fill(null) : filtredItems).map((obj, index) => (
+            <Card 
+                key={index}
+                title={obj?.name}        
+                description={obj?.description}
+                price={obj?.price} 
+                imageUrl={obj?.img}
+                onClickFavorite={() => onAddToFavorite(obj)}
+                onPlus={() => onAddToCart(obj)}
+                added={cartItems.some(item => Number(item.id) === Number(obj?.id))}
+                id={obj?.id}
+                loading={isLoading} 
+            />
+        ));
+    };
+    
     return (
         <div className="content p-40">
             <div className="d-flex align-center justify-between mb-40">
@@ -19,25 +43,7 @@ function Home({ items, cartItems, searchValue, setSearchValue, onChangeSearchInp
             </div>
 
             <div className="d-flex flex-wrap">
-            {items
-                .filter(item => 
-                item.name.toLowerCase().includes(searchValue.toLowerCase()) || 
-                item.description.toLowerCase().includes(searchValue.toLowerCase()) 
-                )
-                .map((obj, index) => (
-                <Card 
-                    key={index}
-                    title={obj.name}
-                    description={obj.description}
-                    price={obj.price} 
-                    imageUrl = {obj.img}
-                    onClickFavorite = {(product) => onAddToFavorite(obj)}
-                    onPlus = {(product) => onAddToCart(obj)}
-                    added={cartItems.some(item => Number(item.id) === Number(obj.id))}
-                    id={obj.id}
-                />
-                ))
-            }
+            {renderItems()}
             </div>
         </div>
     )

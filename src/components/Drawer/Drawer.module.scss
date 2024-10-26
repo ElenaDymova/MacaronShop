@@ -1,0 +1,43 @@
+.overlay {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    position: fixed;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+  }
+
+.overlayVisible {
+    visibility: visible;
+    opacity: 1;
+}
+
+.drawer {
+    position: fixed; /* фиксируем элемент относительно окна браузера */
+    width: 420px;
+    height: 100vh; /* высота равна высоте окна */
+    right: 0;
+    top: 0; /* прикрепляем к верхней части экрана */
+    background: #ffffff;
+    box-shadow: -10px 4px 24px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    z-index: 2; /* убедиться, что drawer находится выше остальных элементов */
+  
+    .items {
+      overflow: hidden;
+      margin-bottom: 40px;
+      flex: 1;
+    }
+  
+    h2 {
+      margin: 0;
+      font-size: 24px;
+    }
+  }

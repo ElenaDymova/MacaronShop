@@ -3,16 +3,24 @@ import styles from './Card.module.scss';
 import ContentLoader from "react-content-loader";
 import AppContext from '../../pages/context';
 
-function Card({ id, onClickFavorite, title, description, imageUrl, price, onPlus, favorited = false, loading = false}) {
+function Card({ id, parentId, onClickFavorite, title, description, imageUrl, price, onPlus, favorited = false, loading = false}) {
     const [isFavorite, setIsFavorite] = React.useState(favorited);
     const {isItemAdded} = React.useContext(AppContext);
+    const obj = {
+        id,           
+        parentId: id,  
+        title,         
+        imageUrl,     
+        price         
+    };
 
     const onClickPlus = () => {
-        onPlus({id, title, imageUrl, price});
+        console.log("Adding to cart:", obj);
+        onPlus(obj);
     }
 
     const onTapFavorite = () => {
-        onClickFavorite({id, title, imageUrl, price});
+        onClickFavorite(obj);
         setIsFavorite(!isFavorite);
     }
 
@@ -38,7 +46,7 @@ function Card({ id, onClickFavorite, title, description, imageUrl, price, onPlus
         </ContentLoader> :         
         <>
             <div className={styles.favorite}>
-                <img src={isFavorite ? "/img/heart-liked.svg" : "/img/heart-unliked.svg"}  alt='Unliked' onClick={onTapFavorite}/>
+                <img src={isFavorite ? "img/heart-liked.svg" : "img/heart-unliked.svg"}  alt='Unliked' onClick={onTapFavorite}/>
             </div>
             <img width={133} height={112} src={imageUrl} alt="Macarons"/>
             <h5>{title}</h5>
@@ -46,10 +54,10 @@ function Card({ id, onClickFavorite, title, description, imageUrl, price, onPlus
             <div className="d-flex justify-between align-center">
                 <div className="d-flex flex-column">
                 <span>Price:</span>
-                <b>{price}</b>
+                <b>{price}$</b>
                 </div>
                 <img className={styles.plus} onClick={onClickPlus} 
-                    src={isItemAdded(id) ? "/img/btn-checked.svg" : "/img/btn-plus.svg"} 
+                    src={isItemAdded(id) ? "img/btn-checked.svg" : "img/btn-plus.svg"} 
                     alt="Plus"
                 />
             </div>

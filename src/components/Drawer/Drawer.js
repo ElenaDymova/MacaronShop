@@ -1,11 +1,12 @@
 import React from "react";
-import Info from "./Info";
-import AppContext from "../pages/context";
+import Info from "../Info";
+import AppContext from "../../pages/context";
 import axios from "axios";
+import styles from "./Drawer.module.scss";
 
 // const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-function Drawer({ onClose, onRemove, items = [] }) {
+function Drawer({ onClose, onRemove, items = [], opened }) {
     const {cartItems, setCartItems} = React.useContext(AppContext);
     const [isOrderCompleted, setIsOrderComplited] = React.useState(false);
     const [isLoading, setIsLoading] = React.useState(false);
@@ -28,6 +29,7 @@ function Drawer({ onClose, onRemove, items = [] }) {
     const onClickOrder = async () => {
         try {
             setIsLoading(true);
+            console.log("Order items being sent:", cartItems);
             const { data } = await axios.post('https://67153ecc33bc2bfe40b9e441.mockapi.io/orders', {
                 items: cartItems,
             });
@@ -45,24 +47,24 @@ function Drawer({ onClose, onRemove, items = [] }) {
 
 
     return (
-        <div className="overlay">
-            <div className="drawer">
+        <div className={`${styles.overlay} ${opened ? styles.overlayVisible : ''}`}>
+            <div className={styles.drawer}>
                 <h2 className="d-flex justify-between mb-30">Shopping cart 
-                    <img onClick={onClose} className="removeBtn cu-p" src="/img/btn-remove.svg" alt="remove"/>
+                    <img onClick={onClose} className="removeBtn cu-p" src="img/btn-remove.svg" alt="remove"/>
                 </h2>
 
                 {
                     items.length > 0 ? 
-                    <div className="d-flex flex-column flex">
-                        <div className="items">
+                    <div className="d-flex flex-column flex" style={{ overflow: "auto" }}>
+                        <div className="items flex">
                             {items.map((obj) => (
                                 <div key={obj.id} className="cartItem d-flex align-center mb-20">
                                     <div style={{ backgroundImage: `url(${obj.img})` }} className="cartItemImg"></div>
                                     <div className="mr-20">
                                     <p className="mb-5">{obj.name}</p>
-                                    <b>{obj.price}</b>
+                                    <b>{obj.price}$</b>
                                     </div>
-                                    <img onClick={() => onRemove(obj.id)} className="removeBtn" src="/img/btn-remove.svg" alt="remove"/>
+                                    <img onClick={() => onRemove(obj.id)} className="removeBtn" src="img/btn-remove.svg" alt="remove"/>
                                 </div>
                             ))}
                         </div>
@@ -76,16 +78,16 @@ function Drawer({ onClose, onRemove, items = [] }) {
                                 <li>
                                 <span>Tax 5%:</span>
                                 <div></div>
-                                <b>{totalPrice / 100 * 5}$</b>
+                                <b>{(totalPrice * 0.05).toFixed(2)}$</b>
                                 </li>
                             </ul>
-                            <button disabled={isLoading} onClick={onClickOrder} className="pinkButton">Place an order <img src="/img/arrow.svg" alt="arrow"/> </button>
+                            <button disabled={isLoading} onClick={onClickOrder} className="pinkButton">Place an order <img src="img/arrow.svg" alt="arrow"/> </button>
                         </div>
                     </div> :
                     <Info 
                         title={isOrderCompleted ? "The order has been placed" : "Empty shopping cart" }
                         description={isOrderCompleted ? `Your order #${orderId} will be delivered by courier soon`  : "Add at least 1 dessert to place an order" }
-                        image={isOrderCompleted ? "/img/completed-order.svg" : "/img/empty-cart.svg"}/>
+                        image={isOrderCompleted ? "img/completed-order.svg" : "img/empty-cart.svg"}/>
                 }
 
             </div>

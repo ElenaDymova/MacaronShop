@@ -11,6 +11,8 @@ function Drawer({ onClose, onRemove, items = [] }) {
     const [isLoading, setIsLoading] = React.useState(false);
     const [orderId, setOrderId] = React.useState(null);
 
+    const totalPrice = cartItems.reduce((sum, obj) => obj.price + sum, 0);
+
     const clearCartInMockAPI = async () => {
         try {
             // Удаляем каждый элемент корзины по его id
@@ -69,12 +71,12 @@ function Drawer({ onClose, onRemove, items = [] }) {
                                 <li>
                                 <span>Итого:</span>
                                 <div></div>
-                                <b>200$</b>
+                                <b>{totalPrice}$</b>
                                 </li>
                                 <li>
                                 <span>Tax 5%:</span>
                                 <div></div>
-                                <b>10$</b>
+                                <b>{totalPrice / 100 * 5}$</b>
                                 </li>
                             </ul>
                             <button disabled={isLoading} onClick={onClickOrder} className="pinkButton">Place an order <img src="/img/arrow.svg" alt="arrow"/> </button>

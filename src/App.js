@@ -5,6 +5,7 @@ import Header from './components/Header';
 import Drawer from './components/Drawer';
 import Home from './pages/Home';
 import Favorites from './pages/Favorites';
+import Orders from './pages/Orders';
 import AppContext from './pages/context';
 
 
@@ -86,7 +87,7 @@ function App() {
   }
 
   return (
-    <AppContext.Provider value={{items, cartItems, favorites, isItemAdded, onAddToFavorite, setCartOpened, setCartItems}}>
+    <AppContext.Provider value={{items, cartItems, favorites, isItemAdded, onAddToFavorite, setCartOpened, setCartItems, onAddToCart}}>
       <div className="wrapper clear">
         {cartOpened ? <Drawer onRemove={onRemoveItem} items={cartItems} onClose = {() => setCartOpened(false)}/> : null}
           <Header onClickCart = {() => setCartOpened(true)}/>
@@ -113,6 +114,13 @@ function App() {
               element={
                 <Favorites />
               }
+          />
+
+          <Route 
+            path='/orders' 
+            element={
+              <Orders />
+            }
           />
         </Routes>
 

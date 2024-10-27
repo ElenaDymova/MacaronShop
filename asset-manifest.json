@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/macaronshop/static/css/main.30b35aa5.css",
+    "main.js": "/macaronshop/static/js/main.5baa684b.js",
+    "index.html": "/macaronshop/index.html",
+    "main.30b35aa5.css.map": "/macaronshop/static/css/main.30b35aa5.css.map",
+    "main.5baa684b.js.map": "/macaronshop/static/js/main.5baa684b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.30b35aa5.css",
+    "static/js/main.5baa684b.js"
+  ]
+}

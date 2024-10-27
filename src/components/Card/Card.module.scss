@@ -36,3 +36,16 @@
       font-size: 14px;
     }
   }
+
+  @media (max-width: 768px) {
+    .card {
+      width: 185px;
+      margin-right: 15px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .card {
+      width: 210px;
+    }
+  }

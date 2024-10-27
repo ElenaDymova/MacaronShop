@@ -1,0 +1,71 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px;
+  border-bottom: 1px solid #eaeaea;
+  img {
+    margin-right: 15px;
+  }
+
+  h3,
+  p {
+    margin: 0;
+  }
+
+  .link {
+    margin-right: 30px;
+    cursor: pointer;
+  }
+
+  ul {
+    display: flex;
+  }
+}
+
+@media (max-width: 1024px) {
+  header {
+    padding: 30px; 
+  }
+}
+
+/* Для экранов шириной до 768px (например, мобильные устройства в ландшафтном режиме) */
+@media (max-width: 768px) {
+  header {
+    padding: 20px;
+    p {
+      max-width: 150px;
+    }
+
+    h3 {
+      font-size: 16px;
+    }
+
+    p {
+      font-size: 14px;
+    }
+
+    .link {
+      margin-right: 8px;
+    }
+  }
+}
+
+/* Для экранов шириной до 480px (например, мобильные устройства в портретном режиме) */
+@media (max-width: 480px) {
+  header {
+    flex-wrap: wrap;
+
+    p {
+      max-width: none;
+    }
+
+    ul {
+      margin-top: 30px !important;
+    }
+
+    .link {
+      margin-right: 20px;
+    }
+  }
+}

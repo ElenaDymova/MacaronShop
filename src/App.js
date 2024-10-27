@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import axios from 'axios';
-import Header from './components/Header';
+import Header from './components/Header/Header';
 import Drawer from './components/Drawer/Drawer';
 import Home from './pages/Home';
 import Favorites from './pages/Favorites';
@@ -61,7 +61,7 @@ function App() {
       }
     } catch (error) {
       alert('error when adding to the cart');
-      console.log(error(error))
+      console.error(error);
     }
   
   }
@@ -79,7 +79,7 @@ function App() {
           .catch((error) => console.error(`Error removing item with id ${id}:`, error));
     } catch(error) {
       alert('error when deleting from the trash');
-      console.log(error(error));
+      console.error(error);
     }
   }
 

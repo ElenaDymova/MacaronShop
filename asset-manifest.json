@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/macaronshop/static/css/main.30b35aa5.css",
-    "main.js": "/macaronshop/static/js/main.549af880.js",
+    "main.js": "/macaronshop/static/js/main.531db552.js",
     "index.html": "/macaronshop/index.html",
     "main.30b35aa5.css.map": "/macaronshop/static/css/main.30b35aa5.css.map",
-    "main.549af880.js.map": "/macaronshop/static/js/main.549af880.js.map"
+    "main.531db552.js.map": "/macaronshop/static/js/main.531db552.js.map"
   },
   "entrypoints": [
     "static/css/main.30b35aa5.css",
-    "static/js/main.549af880.js"
+    "static/js/main.531db552.js"
   ]
 }

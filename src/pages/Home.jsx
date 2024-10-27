@@ -31,12 +31,12 @@ function Home({ items, searchValue, setSearchValue, onChangeSearchInput, onAddTo
             <div className="title">
                 <h1>{searchValue ? `search by: "${searchValue}"` : 'All desserts'}</h1>
                 <div className="search-block">
-                <img src="img/search.svg" alt="Search"/>
+                <img src="/img/search.svg" alt="Search"/>
                 {searchValue && (
                     <img 
                     onClick={() => setSearchValue('')}
                     className="removeBtn clear cu-p" 
-                    src="img/btn-remove.svg" 
+                    src="/img/btn-remove.svg" 
                     alt="Clear"
                     />)}
                 <input onChange={onChangeSearchInput} value={searchValue} placeholder="Поиск..."/>

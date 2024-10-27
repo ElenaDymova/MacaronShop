@@ -50,7 +50,7 @@ function Drawer({ onClose, onRemove, items = [], opened }) {
         <div className={`${styles.overlay} ${opened ? styles.overlayVisible : ''}`}>
             <div className={styles.drawer}>
                 <h2 className="d-flex justify-between mb-30">Shopping cart 
-                    <img onClick={onClose} className="removeBtn cu-p" src="img/btn-remove.svg" alt="remove"/>
+                    <img onClick={onClose} className="removeBtn cu-p" src="/img/btn-remove.svg" alt="remove"/>
                 </h2>
 
                 {
@@ -64,7 +64,7 @@ function Drawer({ onClose, onRemove, items = [], opened }) {
                                     <p className="mb-5">{obj.name}</p>
                                     <b>{obj.price}$</b>
                                     </div>
-                                    <img onClick={() => onRemove(obj.id)} className="removeBtn" src="img/btn-remove.svg" alt="remove"/>
+                                    <img onClick={() => onRemove(obj.id)} className="removeBtn" src="/img/btn-remove.svg" alt="remove"/>
                                 </div>
                             ))}
                         </div>
@@ -81,13 +81,13 @@ function Drawer({ onClose, onRemove, items = [], opened }) {
                                 <b>{(totalPrice * 0.05).toFixed(2)}$</b>
                                 </li>
                             </ul>
-                            <button disabled={isLoading} onClick={onClickOrder} className="pinkButton">Place an order <img src="img/arrow.svg" alt="arrow"/> </button>
+                            <button disabled={isLoading} onClick={onClickOrder} className="pinkButton">Place an order <img src="/img/arrow.svg" alt="arrow"/> </button>
                         </div>
                     </div> :
                     <Info 
                         title={isOrderCompleted ? "The order has been placed" : "Empty shopping cart" }
                         description={isOrderCompleted ? `Your order #${orderId} will be delivered by courier soon`  : "Add at least 1 dessert to place an order" }
-                        image={isOrderCompleted ? "img/completed-order.svg" : "img/empty-cart.svg"}/>
+                        image={isOrderCompleted ? "/img/completed-order.svg" : "/img/empty-cart.svg"}/>
                 }
 
             </div>
